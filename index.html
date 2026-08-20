@@ -624,7 +624,7 @@ svg{display:block}
       <div class="card">
         <div style="margin-bottom:18px;"><span class="tag">Plan Esencial</span></div>
         <div style="margin-bottom:6px;">
-          <span class="plan-price">$87</span>
+          <span class="plan-price">$137</span>
           <span class="plan-mo">/mes</span>
         </div>
         <p style="font-size:13px;margin-bottom:22px;">Para quienes tienen una frecuencia de cambios moderada y controlable.</p>
@@ -641,7 +641,7 @@ svg{display:block}
         <div class="plan-rec-label">Recomendado</div>
         <div style="margin-bottom:18px;"><span class="badge">Plan Completo</span></div>
         <div style="margin-bottom:6px;">
-          <span class="plan-price plan-price--indigo">$137</span>
+          <span class="plan-price plan-price--indigo">$197</span>
           <span class="plan-mo">/mes</span>
         </div>
         <p style="font-size:13px;margin-bottom:22px;">Para quienes quieren la página y el SEO siempre al día, sin pensar en costos por cada cambio.</p>
@@ -682,7 +682,7 @@ svg{display:block}
 
       <div class="calc-result">
         <div class="calc-winner-lbl">Opción más económica este mes</div>
-        <div class="calc-winner-name" id="cname">Plan Completo — $137/mes</div>
+        <div class="calc-winner-name" id="cname">Plan Completo — $197/mes</div>
         <div class="calc-savings" id="csavings" style="color:var(--green);">Te ahorras $89 frente al tarifario por requerimiento</div>
         <div class="calc-cols">
           <div class="calc-col">
@@ -691,7 +691,7 @@ svg{display:block}
           </div>
           <div class="calc-col">
             <div class="calc-col-lbl">Plan Completo</div>
-            <div class="calc-col-val calc-col-val--indigo">$137</div>
+            <div class="calc-col-val calc-col-val--indigo">$197</div>
           </div>
         </div>
       </div>
@@ -858,7 +858,7 @@ svg{display:block}
 
     <div class="faq-item">
       <div class="faq-q">¿En qué se diferencia el Plan Esencial del Plan Completo?</div>
-      <div class="faq-a">El Plan Esencial cubre hasta 6 actualizaciones de contenido por mes y 1 ficha de destino diseñada. El Plan Completo tiene actualizaciones ilimitadas, 3 fichas diseñadas por mes, SEO mensual con reporte de posicionamiento en Google y soporte prioritario. Si un mes necesitas actualizar 10 destinos, en el Esencial pagarías extra — en el Completo está incluido.</div>
+      <div class="faq-a">El Plan Esencial cubre hasta 6 actualizaciones de contenido por mes y 1 ficha de destino diseñada. El Plan Completo tiene actualizaciones ilimitadas, 3 fichas diseñadas por mes, SEO mensual con reporte de posicionamiento en Google y soporte prioritario. Si un mes necesitas actualizar 10 destinos, en el Esencial pagarías extra — en el Completo está incluido. A partir de 4-5 cambios por mes, el Plan Completo empieza a ganar.</div>
     </div>
 
     <div class="faq-item">
@@ -900,7 +900,7 @@ svg{display:block}
 
 <script>
 const R = { updates:18, destinations:55, cards:40, pdfs:22 };
-const PLAN = 137;
+const PLAN = 197;
 
 function recalc() {
   const u = +document.getElementById('s1').value;
@@ -925,7 +925,7 @@ function recalc() {
     saveEl.style.color  = '#f59e0b';
   } else {
     const diff = total - PLAN;
-    nameEl.textContent  = 'Plan Completo — $137/mes';
+    nameEl.textContent  = 'Plan Completo — $197/mes';
     saveEl.textContent  = 'Ahorras $' + diff + ' frente al tarifario por requerimiento';
     saveEl.style.color  = '#10b981';
   }
