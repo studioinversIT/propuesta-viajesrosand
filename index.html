@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecosistema Digital — Viajes Rosand × Invers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f7fb;
+  --cover:#080814;
+  --indigo:#4f46e5;
+  --indigo-light:rgba(79,70,229,.10);
+  --indigo-border:rgba(79,70,229,.20);
+  --ink:#0f0f1a;
+  --ink-2:#3d3d5c;
+  --ink-3:#7c7c9e;
+  --white:#ffffff;
+  --border:rgba(0,0,0,.07);
+  --green:#10b981;
+  --amber:#f59e0b;
+  --r:22px;
+  --r-sm:12px;
+  --shadow:0 2px 16px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* LAYOUT */
+.section{padding:88px 24px}
+.section--white{background:var(--white)}
+.section--dark{background:var(--cover);color:var(--white)}
+.container{max-width:880px;margin:0 auto}
+
+/* TYPE */
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--indigo);margin-bottom:12px}
+.eyebrow--light{color:rgba(255,255,255,.45)}
+h1{font-size:clamp(38px,6vw,66px);font-weight:800;line-height:1.08;letter-spacing:-.02em}
+h2{font-size:clamp(26px,4vw,38px);font-weight:700;line-height:1.15;letter-spacing:-.01em}
+h3{font-size:20px;font-weight:600;line-height:1.3}
+h4{font-size:15px;font-weight:600}
+p{color:var(--ink-2);line-height:1.75}
+.p--light{color:rgba(255,255,255,.6)}
+
+/* COVER */
+.cover{
+  background:var(--cover);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:64px 24px;
+  position:relative;
+  overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;
+  top:-240px;right:-240px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(79,70,229,.28) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cover::after{
+  content:'';position:absolute;
+  bottom:-180px;left:-180px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(16,185,129,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cover-inner{position:relative;z-index:1}
+.cover-logo{
+  font-size:12px;font-weight:700;letter-spacing:.12em;
+  color:rgba(255,255,255,.35);text-transform:uppercase;
+  margin-bottom:88px;
+}
+.cover-for{
+  font-size:12px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+  margin-bottom:20px;
+}
+.cover h1{color:var(--white);margin-bottom:24px}
+.cover h1 em{color:var(--indigo);font-style:normal}
+.cover-sub{
+  font-size:18px;color:rgba(255,255,255,.5);
+  max-width:520px;margin-bottom:52px;line-height:1.7;
+}
+.btn-group{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:100px;
+  font-size:14px;font-weight:600;cursor:pointer;
+  text-decoration:none;transition:transform .15s,box-shadow .15s;border:none;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.22)}
+.btn--primary{background:var(--indigo);color:white}
+.btn--ghost{background:rgba(255,255,255,.06);color:white;border:1px solid rgba(255,255,255,.12)}
+.cover-meta{
+  font-size:12px;color:rgba(255,255,255,.25);
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:24px;display:flex;gap:28px;flex-wrap:wrap;
+}
+
+/* CARDS */
+.card{
+  background:var(--white);border-radius:var(--r);
+  padding:32px;box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+.card--tinted{
+  background:rgba(79,70,229,.04);
+  border:1px solid var(--indigo-border);
+}
+.card--dark-glass{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+}
+.card--highlight{border:2px solid var(--indigo);position:relative}
+
+/* BADGE */
+.badge{
+  display:inline-block;background:var(--indigo);color:white;
+  font-size:11px;font-weight:700;padding:4px 12px;
+  border-radius:100px;text-transform:uppercase;letter-spacing:.08em;
+}
+.badge--green{background:var(--green)}
+.tag{
+  display:inline-block;background:var(--indigo-light);color:var(--indigo);
+  font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;
+}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+/* SECTION HEADER */
+.sh{margin-bottom:52px}
+.sh h2{margin-bottom:12px}
+
+/* PROBLEM */
+.prob-item{
+  display:flex;gap:24px;align-items:flex-start;
+  padding:36px 0;border-bottom:1px solid var(--border);
+}
+.prob-item:last-child{border-bottom:none}
+.prob-num{
+  font-size:52px;font-weight:800;
+  color:rgba(79,70,229,.1);line-height:1;
+  min-width:64px;letter-spacing:-.03em;
+}
+
+/* FEATURE */
+.fi{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.fi:last-child{border-bottom:none}
+.fi-icon{
+  width:32px;height:32px;background:var(--indigo-light);
+  border-radius:8px;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:2px;
+}
+.check{color:var(--green);flex-shrink:0;margin-top:3px}
+.dash{color:#d1d5db;flex-shrink:0;margin-top:3px}
+
+/* PRICE HERO */
+.price-hero{
+  text-align:center;padding:56px 32px;
+  background:var(--cover);border-radius:var(--r);
+  color:white;margin-bottom:24px;position:relative;overflow:hidden;
+}
+.price-hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(79,70,229,.45) 0%,transparent 70%);
+}
+.ph-inner{position:relative;z-index:1}
+.price-big{
+  font-size:clamp(60px,10vw,88px);font-weight:800;
+  color:white;line-height:1;letter-spacing:-.04em;
+}
+.price-sup{
+  font-size:32px;font-weight:600;
+  vertical-align:super;color:rgba(255,255,255,.6);
+}
+.price-label{font-size:14px;color:rgba(255,255,255,.45);margin-top:10px}
+.saving-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.3);
+  color:#10b981;padding:8px 18px;border-radius:100px;
+  font-size:13px;font-weight:600;margin-top:22px;
+}
+
+/* PLAN CARDS */
+.plan-rec-label{
+  position:absolute;top:-14px;left:50%;
+  transform:translateX(-50%);
+  background:var(--indigo);color:white;
+  font-size:11px;font-weight:700;
+  padding:4px 18px;border-radius:100px;
+  white-space:nowrap;text-transform:uppercase;letter-spacing:.08em;
+}
+.plan-price{font-size:44px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.03em}
+.plan-price--indigo{color:var(--indigo)}
+.plan-mo{font-size:14px;color:var(--ink-3);font-weight:400}
+.pf{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2);padding:9px 0}
+
+/* TARIFF */
+.tr-row{
+  display:flex;justify-content:space-between;
+  align-items:center;padding:13px 0;
+  border-bottom:1px solid var(--border);gap:16px;
+}
+.tr-row:last-child{border-bottom:none}
+.tr-svc{font-size:14px;color:var(--ink-2)}
+.tr-price{font-size:15px;font-weight:700;color:var(--ink);white-space:nowrap}
+
+/* CALCULATOR */
+.calc-panel{
+  background:#0a0a18;border-radius:var(--r);
+  padding:44px;color:white;
+}
+.calc-sl-wrap{margin-bottom:26px}
+.calc-lbl{
+  display:flex;justify-content:space-between;
+  font-size:13px;color:rgba(255,255,255,.45);
+  margin-bottom:10px;
+}
+.calc-lbl strong{color:white;font-size:16px}
+input[type=range]{
+  width:100%;appearance:none;-webkit-appearance:none;
+  height:4px;border-radius:2px;
+  background:rgba(79,70,229,.3);outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;-webkit-appearance:none;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--indigo);cursor:pointer;
+  box-shadow:0 0 0 5px rgba(79,70,229,.18);
+}
+.calc-result{
+  background:rgba(79,70,229,.12);
+  border:1px solid rgba(79,70,229,.22);
+  border-radius:var(--r-sm);
+  padding:32px;text-align:center;margin-top:36px;
+}
+.calc-winner-lbl{
+  font-size:11px;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;
+}
+.calc-winner-name{font-size:24px;font-weight:700;color:white;margin-bottom:4px}
+.calc-savings{font-size:14px;font-weight:600}
+.calc-cols{
+  margin-top:20px;display:flex;gap:40px;
+  justify-content:center;flex-wrap:wrap;
+}
+.calc-col{text-align:center}
+.calc-col-lbl{
+  font-size:11px;color:rgba(255,255,255,.3);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;
+}
+.calc-col-val{font-size:24px;font-weight:700;color:white}
+.calc-col-val--indigo{color:var(--indigo)}
+
+/* TIMELINE */
+.tl-item{display:flex;gap:20px;margin-bottom:0}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center}
+.tl-dot{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--indigo-light);border:2px solid var(--indigo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--indigo);flex-shrink:0;
+}
+.tl-line{width:2px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
+.tl-content{padding-top:6px;padding-bottom:36px}
+
+/* PHASE2 */
+.p2-item{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:24px 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.p2-item:last-child{border-bottom:none}
+.p2-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(79,70,229,.18);display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;
+}
+.p2-price{
+  font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.35);white-space:nowrap;margin-top:2px;
+}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border);padding:26px 0}
+.faq-item:first-child{padding-top:0}
+.faq-q{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.faq-a{font-size:14px;color:var(--ink-2);line-height:1.75}
+
+/* VAR TABLE */
+.vt{width:100%;border-collapse:collapse}
+.vt th{
+  text-align:left;font-size:12px;font-weight:600;
+  color:var(--ink-3);text-transform:uppercase;
+  letter-spacing:.07em;padding:0 0 14px;
+}
+.vt td{
+  padding:14px 0;font-size:14px;color:var(--ink-2);
+  border-bottom:1px solid var(--border);vertical-align:top;
+}
+.vt tr:last-child td{border-bottom:none}
+.vt td:last-child{text-align:right;font-weight:600;color:var(--ink)}
+
+/* CTA */
+.cta-section{
+  background:var(--indigo);
+  padding:96px 24px;text-align:center;
+}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:28px 0}
+
+/* FOOTER */
+footer{
+  background:var(--cover);padding:40px 24px;
+  text-align:center;color:rgba(255,255,255,.25);font-size:13px;
+}
+
+svg{display:block}
+
+@media(max-width:720px){
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .section{padding:64px 20px}
+  .card{padding:24px}
+  .cover{padding:48px 20px}
+  .cover-logo{margin-bottom:64px}
+  .calc-panel{padding:28px 20px}
+  .price-hero{padding:40px 24px}
+  .cta-section{padding:72px 20px}
+  .prob-item{flex-direction:column;gap:8px}
+  .prob-num{font-size:36px;min-width:auto}
+  .calc-cols{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- 00 · COVER -->
+<section class="cover">
+  <div class="container cover-inner">
+    <div class="cover-logo">Invers AI Technologies</div>
+
+    <div class="cover-for">Para · Viajes Rosand · Costa Rica</div>
+    <h1>Tu agencia merece una presencia digital que <em>convierta visitas en ventas.</em></h1>
+    <p class="cover-sub">Propuesta de Ecosistema Web integrado con tu CRM — diseñado para generar prospectos automáticamente, acortar el tiempo al primer contacto y posicionar a Viajes Rosand en Google.</p>
+
+    <div class="btn-group">
+      <a href="#inversion" class="btn btn--primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        Ver inversión
+      </a>
+      <a href="#cta" class="btn btn--ghost">Agendar kickoff</a>
+    </div>
+
+    <div class="cover-meta">
+      <span>Preparada por Fernando Armijos · Invers</span>
+      <span>Fecha: 20 de agosto de 2026</span>
+      <span>Para: Josué Montes · Viajes Rosand</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- 01 · EL PROBLEMA -->
+<section class="section section--white">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">La situación actual</div>
+      <h2>Tres problemas que cuestan clientes todos los días</h2>
+    </div>
+
+    <div class="prob-item">
+      <div class="prob-num">01</div>
+      <div>
+        <h3 style="margin-bottom:10px;">La página no abre — en ningún dispositivo</h3>
+        <p>viajesrosand.com tiene el certificado SSL vencido y el servidor sin respuesta. Cuando un prospecto intenta entrar, su dispositivo muestra una advertencia de seguridad y bloquea el acceso. Muchos no insisten. Al revisar la página para preparar esta propuesta, no cargó en absoluto. Cada día que pasa así es un cliente que no llega — y uno que probablemente se va con la competencia.</p>
+      </div>
+    </div>
+
+    <div class="prob-item">
+      <div class="prob-num">02</div>
+      <div>
+        <h3 style="margin-bottom:10px;">Viajes Rosand no existe en Google</h3>
+        <p>Cuando alguien busca "agencias de viajes Costa Rica", "salidas grupales a Europa" o "paquetes de viaje con financiamiento", Viajes Rosand no aparece. La agencia lleva años construyendo reputación y una red de clientes, pero ese activo no se traduce en tráfico orgánico. El tráfico que debería ser gratuito hay que pagarlo en publicidad, o simplemente no llega.</p>
+      </div>
+    </div>
+
+    <div class="prob-item">
+      <div class="prob-num">03</div>
+      <div>
+        <h3 style="margin-bottom:10px;">Dependencia total de un proveedor que no colabora</h3>
+        <p>El hosting, el dominio y los accesos están en manos de un proveedor externo que no entrega información con agilidad. Actualizar el precio de un paquete o publicar un nuevo destino requiere esperar y depender de alguien más. La agencia no tiene autonomía sobre su activo digital más importante — y eso frena la operación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 02 · LA SOLUCIÓN -->
+<section class="section">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">La solución</div>
+      <h2>Un ecosistema que alimenta tu operación comercial</h2>
+      <p style="margin-top:14px;max-width:600px;">Viajes Rosand ya tiene activo SmartInvers CRM. La nueva página no es un sistema separado — es la puerta de entrada que convierte cada visita en un prospecto calificado dentro de tu pipeline.</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="fi-icon" style="margin-bottom:18px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        </div>
+        <h3 style="margin-bottom:10px;">Presencia que vende</h3>
+        <p style="font-size:14px;">Una página moderna, rápida y segura que muestra tus destinos con precio, itinerario descargable y galería real — construida para que el visitante quiera cotizar antes de salir.</p>
+      </div>
+
+      <div class="card">
+        <div class="fi-icon" style="margin-bottom:18px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 style="margin-bottom:10px;">Automatización comercial</h3>
+        <p style="font-size:14px;">Cada prospecto que llega de la web entra al CRM con su destino, fechas y número de personas — y se asigna automáticamente al asesor. Cero intervención manual.</p>
+      </div>
+
+      <div class="card">
+        <div class="fi-icon" style="margin-bottom:18px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h3 style="margin-bottom:10px;">Autonomía total</h3>
+        <p style="font-size:14px;">El hosting queda dentro del CRM que ya pagas. El dominio pasa a tu control. Actualizas precios y destinos tú mismo — sin depender de nadie ni esperar a que otro lo haga.</p>
+      </div>
+
+      <div class="card">
+        <div class="fi-icon" style="margin-bottom:18px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 style="margin-bottom:10px;">Crecimiento orgánico</h3>
+        <p style="font-size:14px;">SEO estructurado desde el primer día: Google Business Profile, Search Console y Pixel de Meta instalados — cada visita construye audiencias y cada búsqueda empieza a encontrarte.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 03 · QUÉ INCLUYE -->
+<section class="section section--white">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">Alcance completo · Fase 1</div>
+      <h2>Qué construimos</h2>
+    </div>
+
+    <!-- WEB -->
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
+        <div class="fi-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Diseño y desarrollo — 7 páginas</h3>
+      </div>
+
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Home</div><div style="font-size:13px;color:var(--ink-3);">Hero visual con destinos destacados, propuesta de valor y CTA directo a cotización y WhatsApp</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Salidas Grupales</div><div style="font-size:13px;color:var(--ink-3);">Catálogo con hasta 30 destinos: foto, precio, fechas, estado (disponible / lleno) y PDF del itinerario descargable por destino</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Cotización Personalizada</div><div style="font-size:13px;color:var(--ink-3);">Formulario inteligente: destino, fechas, personas, tipo de servicio (aéreo, hospedaje, traslados, paquete completo) — cae directo al CRM</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Clubes de Viajes / Financiamiento</div><div style="font-size:13px;color:var(--ink-3);">Explicación del modelo de ahorro y financiamiento + formulario de interés conectado al CRM</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Galería de Viajeros</div><div style="font-size:13px;color:var(--ink-3);">Mosaico de fotos y videos reales de grupos anteriores — prueba social que genera confianza antes de cotizar</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Sobre Nosotros + Contacto</div><div style="font-size:13px;color:var(--ink-3);">Historia, equipo, datos, mapa y botón flotante de WhatsApp visible en todas las páginas del sitio</div></div>
+      </div>
+    </div>
+
+    <!-- CRM -->
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
+        <div class="fi-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Automatización comercial — SmartInvers CRM</h3>
+      </div>
+
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Captura automática de prospectos</div><div style="font-size:13px;color:var(--ink-3);">Cada formulario completado crea el contacto en el CRM al instante — sin copiar datos manualmente</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--ink);">Información del destino incluida en el lead</div>
+          <div style="font-size:13px;color:var(--ink-3);">El asesor recibe: nombre, teléfono, correo, destino de interés, fechas, número de personas y tipo de servicio. No tiene que hacer la primera pregunta — ya tiene el contexto completo para un contacto de calidad.</div>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Asignación automática al asesor</div><div style="font-size:13px;color:var(--ink-3);">El prospecto se asigna al comercial correspondiente con notificación inmediata — el tiempo entre la solicitud y el primer contacto se reduce drásticamente</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Confirmación automática al prospecto</div><div style="font-size:13px;color:var(--ink-3);">Al enviar el formulario, el prospecto recibe un email automático confirmando la recepción y el tiempo estimado de respuesta — mejor percepción de la agencia desde el primer segundo</div></div>
+      </div>
+      <div class="fi">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div><div style="font-size:14px;font-weight:600;color:var(--ink);">Pipeline de cotizaciones</div><div style="font-size:13px;color:var(--ink-3);">Nuevo → En contacto → Cotizado → Confirmado / Perdido. Visibilidad total del estado de cada prospecto en tiempo real</div></div>
+      </div>
+    </div>
+
+    <!-- INFRA + SEO -->
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
+        <div class="fi-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        </div>
+        <h3>Infraestructura, SEO y Diseño gráfico</h3>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">Migración de dominio + DNS</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">Hosting dentro del CRM (sin costo extra)</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">SSL configurado — abre en todos los dispositivos</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">Google Analytics + Search Console</div></div>
+        </div>
+        <div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">SEO on-page + sitemap XML</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">Google Business Profile optimizado</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">Pixel de Meta instalado desde el día 1</div></div>
+          <div class="fi"><div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:14px;color:var(--ink-2);">10 fichas de destino diseñadas + capacitación 60 min</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 04 · INVERSIÓN -->
+<section class="section" id="inversion">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">Inversión</div>
+      <h2>Claro, sin sorpresas</h2>
+    </div>
+
+    <div class="price-hero">
+      <div class="ph-inner">
+        <div style="font-size:12px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px;">Setup · Pago único</div>
+        <div class="price-big"><span class="price-sup">$</span>1,497</div>
+        <div class="price-label">Diseño, desarrollo, integración CRM, migración de dominio, SSL, SEO e infraestructura completa</div>
+        <div class="saving-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Hosting incluido en el CRM que ya tienes activo — elimina ~$150/año de hosting externo
+        </div>
+      </div>
+    </div>
+
+    <div class="card card--tinted" style="margin-bottom:24px;">
+      <h4 style="margin-bottom:8px;color:var(--indigo);">¿Qué cubre exactamente el setup?</h4>
+      <p style="font-size:13px;">7 páginas diseñadas y desarrolladas · integración completa con SmartInvers CRM (captura, asignación automática, pipeline, notificación al prospecto) · migración de dominio y DNS · SSL activo · SEO on-page · Google Business Profile · Google Analytics · Search Console · Pixel de Meta · suscripción email al CRM · diseño de 10 fichas de destino · capacitación de 60 minutos.</p>
+    </div>
+
+    <!-- COSTOS VARIABLES -->
+    <div class="card">
+      <h3 style="margin-bottom:6px;">Costos variables — servicios de terceros</h3>
+      <p style="font-size:13px;margin-bottom:26px;">Estos servicios los contrata Viajes Rosand directamente. Se listan aquí para que la propuesta sea completamente transparente.</p>
+      <table class="vt">
+        <tr><th>Servicio</th><th>Referencia</th></tr>
+        <tr>
+          <td><div style="font-weight:500;color:var(--ink);">Dominio</div><div style="font-size:12px;color:var(--ink-3);">Pendiente confirmar si ya está registrado y pagado por el cliente</div></td>
+          <td>~$15–30/año</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:500;color:var(--ink);">Microsoft 365 (correos corporativos)</div><div style="font-size:12px;color:var(--ink-3);">Si mantienen Microsoft, solo configuramos el DNS — sin migración de correos</div></td>
+          <td>Precio actual</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:500;color:var(--ink);">Meta Ads</div><div style="font-size:12px;color:var(--ink-3);">Publicidad en Facebook / Instagram — el Pixel instalado hace ese presupuesto más eficiente desde el primer día</div></td>
+          <td>Según presupuesto</td>
+        </tr>
+        <tr>
+          <td><div style="font-weight:500;color:var(--ink);">WhatsApp API</div><div style="font-size:12px;color:var(--ink-3);">Mensajes automatizados — según volumen de conversaciones activas</div></td>
+          <td>Según consumo</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- 05 · MANTENIMIENTO -->
+<section class="section section--white">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">Mantenimiento</div>
+      <h2>Elige cómo quieres trabajar</h2>
+      <p style="margin-top:12px;max-width:580px;">Los precios de los destinos cambian. Los cupos se llenan. Aparecen nuevos paquetes. El mantenimiento asegura que tu página siempre refleje la realidad de tu oferta — y que Google te encuentre.</p>
+    </div>
+
+    <!-- PLANES -->
+    <div class="grid-2" style="margin-bottom:44px;">
+      <div class="card">
+        <div style="margin-bottom:18px;"><span class="tag">Plan Esencial</span></div>
+        <div style="margin-bottom:6px;">
+          <span class="plan-price">$87</span>
+          <span class="plan-mo">/mes</span>
+        </div>
+        <p style="font-size:13px;margin-bottom:22px;">Para quienes tienen una frecuencia de cambios moderada y controlable.</p>
+        <div class="divider"></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Hasta 6 actualizaciones de contenido/mes</div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>1 ficha de destino nueva diseñada/mes</div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Carga de PDFs de itinerarios</div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Soporte WhatsApp en horario normal</div>
+        <div class="pf"><span class="dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span style="color:var(--ink-3);">Reporte SEO mensual</span></div>
+        <div class="pf"><span class="dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span style="color:var(--ink-3);">Revisión mensual de performance</span></div>
+      </div>
+
+      <div class="card card--highlight">
+        <div class="plan-rec-label">Recomendado</div>
+        <div style="margin-bottom:18px;"><span class="badge">Plan Completo</span></div>
+        <div style="margin-bottom:6px;">
+          <span class="plan-price plan-price--indigo">$137</span>
+          <span class="plan-mo">/mes</span>
+        </div>
+        <p style="font-size:13px;margin-bottom:22px;">Para quienes quieren la página y el SEO siempre al día, sin pensar en costos por cada cambio.</p>
+        <div class="divider"></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Actualizaciones de contenido ilimitadas</strong></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>3 fichas de destino diseñadas/mes</strong></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Carga de PDFs de itinerarios</div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Soporte prioritario WhatsApp</strong></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>SEO mensual + reporte de posicionamiento</strong></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Revisión mensual de performance + ajustes CRM</div>
+      </div>
+    </div>
+
+    <!-- CALCULATOR -->
+    <div class="calc-panel">
+      <div style="margin-bottom:36px;">
+        <div style="font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;">Simulador de actualización</div>
+        <h3 style="color:white;margin-bottom:10px;">¿Cuándo conviene el plan mensual?</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,.45);">Ajusta los sliders según cuántos cambios necesitas por mes y el simulador calcula qué opción es más económica para Viajes Rosand.</p>
+      </div>
+
+      <div class="calc-sl-wrap">
+        <div class="calc-lbl"><span>Actualizaciones de precio o disponibilidad</span><strong id="v1">4</strong></div>
+        <input type="range" id="s1" min="0" max="20" value="4">
+      </div>
+      <div class="calc-sl-wrap">
+        <div class="calc-lbl"><span>Nuevos destinos publicados completos</span><strong id="v2">2</strong></div>
+        <input type="range" id="s2" min="0" max="10" value="2">
+      </div>
+      <div class="calc-sl-wrap">
+        <div class="calc-lbl"><span>Fichas de destino diseñadas</span><strong id="v3">2</strong></div>
+        <input type="range" id="s3" min="0" max="10" value="2">
+      </div>
+      <div class="calc-sl-wrap">
+        <div class="calc-lbl"><span>PDFs de itinerario cargados</span><strong id="v4">3</strong></div>
+        <input type="range" id="s4" min="0" max="15" value="3">
+      </div>
+
+      <div class="calc-result">
+        <div class="calc-winner-lbl">Opción más económica este mes</div>
+        <div class="calc-winner-name" id="cname">Plan Completo — $137/mes</div>
+        <div class="calc-savings" id="csavings" style="color:var(--green);">Te ahorras $89 frente al tarifario por requerimiento</div>
+        <div class="calc-cols">
+          <div class="calc-col">
+            <div class="calc-col-lbl">Tarifario unitario</div>
+            <div class="calc-col-val" id="ctariff">$226</div>
+          </div>
+          <div class="calc-col">
+            <div class="calc-col-lbl">Plan Completo</div>
+            <div class="calc-col-val calc-col-val--indigo">$137</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TARIFF -->
+    <div style="margin-top:36px;">
+      <h3 style="margin-bottom:6px;">Tarifario por requerimiento — Opción B</h3>
+      <p style="font-size:13px;margin-bottom:24px;">Disponible para quienes prefieren pagar solo cuando necesitan algo. Sin mensualidad fija.</p>
+      <div class="card">
+        <div class="grid-2">
+          <div>
+            <div class="tr-row"><span class="tr-svc">Actualización de precio o disponibilidad</span><span class="tr-price">$18 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Actualización de texto o foto</span><span class="tr-price">$25 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Carga de PDF de itinerario</span><span class="tr-price">$22 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Diseño de ficha de destino</span><span class="tr-price">$40 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Publicación de nuevo destino completo</span><span class="tr-price">$55 c/u</span></div>
+          </div>
+          <div>
+            <div class="tr-row"><span class="tr-svc">Diseño de banner / imagen hero</span><span class="tr-price">$65 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Nueva sección en página existente</span><span class="tr-price">$120 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Nueva página completa</span><span class="tr-price">$250 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Ajuste de automatización CRM</span><span class="tr-price">$75 c/u</span></div>
+            <div class="tr-row"><span class="tr-svc">Reporte SEO mensual + optimización</span><span class="tr-price">$90/mes</span></div>
+            <div class="tr-row"><span class="tr-svc">Soporte urgente (atención mismo día)</span><span class="tr-price">$85</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 06 · FASE 2 -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow eyebrow--light">Horizonte</div>
+      <h2 style="color:white;">Fase 2 — Cuando estén listos</h2>
+      <p class="p--light" style="margin-top:12px;max-width:580px;">Estos módulos se añaden sobre la base construida en la Fase 1. No hay que empezar de cero — se integran a la estructura existente.</p>
+    </div>
+
+    <div class="p2-item">
+      <div class="p2-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h4 style="color:white;margin-bottom:6px;">Cotizador online automático</h4>
+            <p style="font-size:13px;color:rgba(255,255,255,.5);">El visitante selecciona destino, fechas y número de personas — la página calcula el precio en tiempo real, conectado a tu base de precios en Excel. El prospecto ya sabe si está dentro de su presupuesto antes de contactarte.</p>
+          </div>
+          <div class="p2-price">Desde $600</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-item">
+      <div class="p2-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h4 style="color:white;margin-bottom:6px;">Pasarela de pagos — Stripe</h4>
+            <p style="font-size:13px;color:rgba(255,255,255,.5);">La página deja de ser informativa y se convierte en transaccional: el cliente puede reservar y pagar un paquete grupal directamente desde la web. Stripe está disponible en Costa Rica — la configuración toma 1-2 días. Comisión aproximada: 5% por transacción.</p>
+          </div>
+          <div class="p2-price">Desde $250</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-item">
+      <div class="p2-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+          <div>
+            <h4 style="color:white;margin-bottom:6px;">Área privada de viajeros</h4>
+            <p style="font-size:13px;color:rgba(255,255,255,.5);">Los clientes frecuentes tienen su perfil, historial de viajes y preferencias guardadas. Permite campañas de fidelización personalizadas y una experiencia más profesional para quienes viajan repetidamente con Viajes Rosand.</p>
+          </div>
+          <div class="p2-price">Desde $400</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 07 · CRONOGRAMA -->
+<section class="section">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">Implementación</div>
+      <h2>4 semanas del kickoff al lanzamiento</h2>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot">1</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <h4 style="margin-bottom:8px;">Semana 1 — Discovery y aprobación de estructura</h4>
+        <p style="font-size:14px;">Revisión de referencias visuales, definición de paleta y estilo, wireframe de las 7 páginas. Josué aprueba la estructura antes de que arranque el diseño — sin sorpresas al ver el resultado final.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot">2</div><div class="tl-line"></div></div>
+      <div class="tl-content">
+        <h4 style="margin-bottom:8px;">Semanas 2–3 — Diseño, desarrollo y automatizaciones</h4>
+        <p style="font-size:14px;">Diseño y desarrollo de las 7 páginas, diseño de las 10 fichas de destino iniciales. Configuración de automatizaciones en el CRM: captura de prospectos, asignación automática al asesor, pipeline de cotizaciones y notificación al prospecto.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot-wrap"><div class="tl-dot">3</div><div class="tl-line" style="min-height:0;flex:0"></div></div>
+      <div class="tl-content" style="padding-bottom:0;">
+        <h4 style="margin-bottom:8px;">Semana 4 — Infraestructura, QA y lanzamiento</h4>
+        <p style="font-size:14px;">Migración de dominio, DNS, SSL activo. SEO técnico, Google Business Profile, Google Analytics, Search Console, Pixel de Meta. QA completo en todos los dispositivos. Capacitación de 60 minutos. Lanzamiento.</p>
+      </div>
+    </div>
+
+    <div class="card card--tinted" style="margin-top:40px;">
+      <h4 style="margin-bottom:14px;color:var(--indigo);">Lo que necesitamos de Viajes Rosand para arrancar</h4>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Referencias visuales de páginas de agencias que les gustaron</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Datos del proveedor actual del dominio para gestionar la transferencia</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Fotos y videos de viajes para la galería (los que ya tienen en su biblioteca)</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Información de los primeros 10 destinos para las fichas iniciales</div>
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Logo en alta resolución y colores corporativos de la agencia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 08 · FAQ -->
+<section class="section section--white">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow">Preguntas frecuentes</div>
+      <h2>Lo que normalmente se pregunta</h2>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Qué pasa con los correos corporativos que tenemos en Microsoft?</div>
+      <div class="faq-a">Los correos no se ven afectados. Lo único que cambia es la configuración DNS del dominio para que apunte al nuevo hosting. Si en algún momento deciden migrar a otro proveedor de correo, también lo gestionamos — Microsoft genera respaldos completos y el proceso no pierde ninguna información.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Pierdo algo al migrar el dominio desde el proveedor actual?</div>
+      <div class="faq-a">No. La migración de dominio es una transferencia técnica del registro — el sitio antiguo simplemente deja de usarse y el nuevo toma su lugar en la misma dirección web. Gestionamos todo el proceso para que el período de transición sea mínimo y no exista tiempo muerto.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Podré actualizar los destinos y precios yo mismo, sin depender de Invers?</div>
+      <div class="faq-a">Sí. La capacitación de 60 minutos cubre exactamente eso: cómo publicar un nuevo destino, actualizar un precio, cambiar el estado de disponibilidad (disponible / lleno) y cargar un PDF de itinerario. La página queda en tus manos para los cambios del día a día. El plan de mantenimiento es para cuando necesitas diseño, SEO o cambios técnicos.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Cómo llegan los prospectos al CRM y qué información traen?</div>
+      <div class="faq-a">Cada formulario completado en la web crea automáticamente un contacto en SmartInvers CRM. El prospecto llega con: nombre, teléfono, correo, destino de interés, fechas, número de personas y tipo de servicio. El asesor no tiene que hacer la primera pregunta — ya tiene el contexto completo para un primer contacto de calidad.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿En qué se diferencia el Plan Esencial del Plan Completo?</div>
+      <div class="faq-a">El Plan Esencial cubre hasta 6 actualizaciones de contenido por mes y 1 ficha de destino diseñada. El Plan Completo tiene actualizaciones ilimitadas, 3 fichas diseñadas por mes, SEO mensual con reporte de posicionamiento en Google y soporte prioritario. Si un mes necesitas actualizar 10 destinos, en el Esencial pagarías extra — en el Completo está incluido.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Cuándo empieza a correr la mensualidad del mantenimiento?</div>
+      <div class="faq-a">La mensualidad comienza a partir del mes siguiente al lanzamiento de la página. El mes de implementación (las 4 semanas del cronograma) no tiene costo de mantenimiento.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Puedo empezar con el Plan Esencial y subir al Completo después?</div>
+      <div class="faq-a">Sí, sin penalidad ni trámite adicional. Si en los primeros meses ves que necesitas más actualizaciones o quieres incluir el SEO mensual, el cambio aplica desde el mes siguiente.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">¿Qué tan rápido se puede integrar la pasarela de pagos en la Fase 2?</div>
+      <div class="faq-a">Stripe está disponible en Costa Rica y la cuenta se activa en 1-2 días hábiles. La integración en la página toma entre 3-5 días de desarrollo adicional. Es el módulo más rápido de la Fase 2 — una vez que tengan resuelto el trámite bancario, el tiempo técnico es mínimo.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="container" style="max-width:580px;text-align:center;">
+    <div class="eyebrow eyebrow--light" style="color:rgba(255,255,255,.5);">Siguiente paso</div>
+    <h2 style="color:white;margin:14px 0 18px;">¿Esta estructura tiene sentido para Viajes Rosand?</h2>
+    <p style="color:rgba(255,255,255,.65);margin-bottom:44px;font-size:17px;">Confirmamos el alcance de la Fase 1, elegimos el modelo de mantenimiento y agendamos el kickoff. Podemos arrancar la semana siguiente.</p>
+    <a href="https://wa.me/593XXXXXXXXX?text=Hola%20Fernando%2C%20revisé%20la%20propuesta%20para%20Viajes%20Rosand%20y%20quiero%20avanzar." class="btn btn--white" style="font-size:16px;padding:20px 44px;margin:0 auto;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Hablar con Fernando
+    </a>
+    <p style="color:rgba(255,255,255,.25);font-size:13px;margin-top:28px;">Invers AI Technologies LLC · fernando.a@invers.ai</p>
+  </div>
+</section>
+
+<footer>
+  <p>Propuesta preparada por Invers AI Technologies para Viajes Rosand · Agosto 2026</p>
+  <p style="margin-top:8px;color:rgba(255,255,255,.15);">Válida por 30 días a partir de la fecha de emisión</p>
+</footer>
+
+<script>
+const R = { updates:18, destinations:55, cards:40, pdfs:22 };
+const PLAN = 137;
+
+function recalc() {
+  const u = +document.getElementById('s1').value;
+  const d = +document.getElementById('s2').value;
+  const c = +document.getElementById('s3').value;
+  const p = +document.getElementById('s4').value;
+
+  document.getElementById('v1').textContent = u;
+  document.getElementById('v2').textContent = d;
+  document.getElementById('v3').textContent = c;
+  document.getElementById('v4').textContent = p;
+
+  const total = u*R.updates + d*R.destinations + c*R.cards + p*R.pdfs;
+  document.getElementById('ctariff').textContent = '$' + total.toLocaleString();
+
+  const nameEl  = document.getElementById('cname');
+  const saveEl  = document.getElementById('csavings');
+
+  if (total <= PLAN) {
+    nameEl.textContent  = 'Tarifario unitario — $' + total;
+    saveEl.textContent  = 'Con este volumen de cambios, el tarifario es la opción más económica';
+    saveEl.style.color  = '#f59e0b';
+  } else {
+    const diff = total - PLAN;
+    nameEl.textContent  = 'Plan Completo — $137/mes';
+    saveEl.textContent  = 'Ahorras $' + diff + ' frente al tarifario por requerimiento';
+    saveEl.style.color  = '#10b981';
+  }
+}
+
+['s1','s2','s3','s4'].forEach(id => document.getElementById(id).addEventListener('input', recalc));
+recalc();
+</script>
+</body>
+</html>
