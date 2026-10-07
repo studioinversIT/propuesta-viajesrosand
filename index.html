@@ -681,9 +681,9 @@ svg{display:block}
           <span class="plan-price plan-price--indigo">$197</span>
           <span class="plan-mo">/mes</span>
         </div>
-        <p style="font-size:13px;margin-bottom:22px;">Para quienes quieren la página y el SEO siempre al día, sin pensar en costos por cada cambio.</p>
+        <p style="font-size:13px;margin-bottom:22px;">Para quienes quieren la página y el SEO siempre al día, con el volumen de cambios de una agencia activa.</p>
         <div class="divider"></div>
-        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Actualizaciones de contenido ilimitadas</strong></div>
+        <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Hasta 15 actualizaciones de contenido/mes</strong></div>
         <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>3 fichas de destino diseñadas/mes</strong></div>
         <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Carga de PDFs de itinerarios</div>
         <div class="pf"><span class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Soporte prioritario WhatsApp</strong></div>
@@ -728,7 +728,7 @@ svg{display:block}
           </div>
           <div class="calc-col">
             <div class="calc-col-lbl">Plan Completo</div>
-            <div class="calc-col-val calc-col-val--indigo">$197</div>
+            <div class="calc-col-val calc-col-val--indigo" id="cplan">$197</div>
           </div>
         </div>
       </div>
@@ -884,18 +884,13 @@ svg{display:block}
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">¿Podré actualizar los destinos y precios yo mismo, sin depender de Invers?</div>
-      <div class="faq-a">Sí. La capacitación de 60 minutos cubre exactamente eso: cómo publicar un nuevo destino, actualizar un precio, cambiar el estado de disponibilidad (disponible / lleno) y cargar un PDF de itinerario. La página queda en tus manos para los cambios del día a día. El plan de mantenimiento es para cuando necesitas diseño, SEO o cambios técnicos.</div>
-    </div>
-
-    <div class="faq-item">
       <div class="faq-q">¿Cómo llegan los prospectos al CRM y qué información traen?</div>
       <div class="faq-a">Cada formulario completado en la web crea automáticamente un contacto en SmartInvers CRM. El prospecto llega con: nombre, teléfono, correo, destino de interés, fechas, número de personas y tipo de servicio. El asesor no tiene que hacer la primera pregunta — ya tiene el contexto completo para un primer contacto de calidad.</div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q">¿En qué se diferencia el Plan Esencial del Plan Completo?</div>
-      <div class="faq-a">El Plan Esencial cubre hasta 6 actualizaciones de contenido por mes y 1 ficha de destino diseñada. El Plan Completo tiene actualizaciones ilimitadas, 3 fichas diseñadas por mes, SEO mensual con reporte de posicionamiento en Google y soporte prioritario. Si un mes necesitas actualizar 10 destinos, en el Esencial pagarías extra — en el Completo está incluido. A partir de 4-5 cambios por mes, el Plan Completo empieza a ganar.</div>
+      <div class="faq-a">El Plan Esencial cubre hasta 6 actualizaciones de contenido por mes y 1 ficha de destino diseñada. El Plan Completo cubre hasta 15 actualizaciones por mes, 3 fichas diseñadas por mes, SEO mensual con reporte de posicionamiento en Google y soporte prioritario. Si un mes necesitas actualizar 10 destinos, en el Esencial pagarías extra — en el Completo está incluido. A partir de 4-5 cambios por mes, el Plan Completo empieza a ganar. Si algún mes superas el tope, los cambios adicionales se cobran según el tarifario por requerimiento.</div>
     </div>
 
     <div class="faq-item">
@@ -966,6 +961,7 @@ svg{display:block}
 
 const R = { updates:18, destinations:55, cards:40, pdfs:22 };
 const PLAN = 197;
+const PLAN_INCL = { updates:15, cards:3 };
 
 function recalc() {
   const u = +document.getElementById('s1').value;
@@ -984,13 +980,16 @@ function recalc() {
   const nameEl  = document.getElementById('cname');
   const saveEl  = document.getElementById('csavings');
 
-  if (total <= PLAN) {
+  const planCost = PLAN + Math.max(0, u - PLAN_INCL.updates)*R.updates + Math.max(0, c - PLAN_INCL.cards)*R.cards;
+  document.getElementById('cplan').textContent = '$' + planCost.toLocaleString();
+
+  if (total <= planCost) {
     nameEl.textContent  = 'Tarifario unitario — $' + total;
     saveEl.textContent  = 'Con este volumen de cambios, el tarifario es la opción más económica';
     saveEl.style.color  = '#f59e0b';
   } else {
-    const diff = total - PLAN;
-    nameEl.textContent  = 'Plan Completo — $197/mes';
+    const diff = total - planCost;
+    nameEl.textContent  = planCost > PLAN ? 'Plan Completo — $' + planCost + ' este mes (incluye excedentes)' : 'Plan Completo — $197/mes';
     saveEl.textContent  = 'Ahorras $' + diff + ' frente al tarifario por requerimiento';
     saveEl.style.color  = '#10b981';
   }
